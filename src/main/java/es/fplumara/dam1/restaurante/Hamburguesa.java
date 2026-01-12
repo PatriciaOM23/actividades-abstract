@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Hamburguesa extends ProductoMenu implements Personalizable{
     private String tipoCarne;
-    private List<Extra> extras = new ArrayList<Extra>();
+    private Extras extras = new Extras();
 
 
     public String getTipoCarne() {
@@ -18,43 +18,35 @@ public class Hamburguesa extends ProductoMenu implements Personalizable{
 
     public Hamburguesa(String id, String nombre, double precioBase, String tipoCarne) {
         super(id, nombre, precioBase);
-        this.tipoCarne = tipoCarne;
-    }
-
-    public Hamburguesa(String id, String nombre, double precioBase, String tipoCarne, List<Extra> extras) {
-        super(id, nombre, precioBase);
         if (tipoCarne == null || tipoCarne.isBlank()){
             throw new IllegalArgumentException();
         }
         this.tipoCarne = tipoCarne;
-        this.extras = extras;
     }
+
+
 
     @Override
     double precioFinal() {
-        double precioFinal = getPrecioBase();
-        return precioFinal;
+
+        return getPrecioBase() + extras.calcularPrecioExtras();
         }
 
     @Override
     String ticketLine() {
-        //CREAR STREAM PARA QUE extras SE VEA
-      //  String extrasFormateado = extras.stream();
-
-        return String.format("```\n" +
-                "[HAMBURGUESA] %s (carne: <%s>) | base: <%.2f>€ | extras: <%s> | total: <%d>€\n" +
-                "```",
-                nombre,
-                tipoCarne,
+        return String.format(
+                "[HAMBURGUESA] %s (carne: <%s>) | base: <%.2f>€ | extras: <%s> | total: <%.2f>€\n",
+                getNombre(),
+                this.tipoCarne,
                 getPrecioBase(),
-                //extrasFormateado,
+                extras.extrasMostrar(),
                 precioFinal()
         );
     }
 
     @Override
     public void anadirExtra(String nombreExtra, int coste) {
-        Personalizable.super.anadirExtra(nombreExtra, coste);
+        this.extras.anadirExtra(nombreExtra, coste);
     }
 
 }
