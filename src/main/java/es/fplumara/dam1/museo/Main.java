@@ -62,5 +62,6 @@ public class Main {
         entradas.removeIf(e -> e instanceof EntradaGeneral );
         System.out.println("-----------------\n LISTA FINAL\n-----------------");
         entradas.forEach(System.out::println);
+
         }
 }
