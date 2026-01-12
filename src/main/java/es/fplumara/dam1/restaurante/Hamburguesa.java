@@ -28,7 +28,6 @@ public class Hamburguesa extends ProductoMenu implements Personalizable{
 
     @Override
     double precioFinal() {
-
         return getPrecioBase() + extras.calcularPrecioExtras();
         }
 

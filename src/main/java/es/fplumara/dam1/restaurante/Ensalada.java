@@ -8,7 +8,11 @@ public class Ensalada extends ProductoMenu implements Personalizable, AptoPara {
 
     public Ensalada(String id, String nombre, double precioBase, String tamano) {
         super(id, nombre, precioBase);
+        if (!this.tamano.equalsIgnoreCase("mediana") || !this.tamano.equalsIgnoreCase("grande")){
+            throw new IllegalArgumentException("La ensalada tiene que ser mediana o grande.");
+        }
         this.tamano = tamano;
+
     }
 
     @Override
